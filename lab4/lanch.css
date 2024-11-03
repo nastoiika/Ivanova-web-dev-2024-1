@@ -31,6 +31,7 @@
     object-fit: cover;
 }
 .product-details{
+    display: flex;
     flex-direction: column;
     justify-content: space-between; 
     flex-grow: 1; 
@@ -69,6 +70,67 @@
     background-color: lightgray;
 }
 
+.data_forms{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 90px;
+    padding: 30px 60px;
+    margin: 0 50px;
+}
+
+.order{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.name_order{
+    text-align: center; 
+}
+.name_order1{
+    font-size: 18px;
+    text-align: left;
+}
+.choice{
+    margin: 10px 0;
+}
+.choice label {
+    display: block;
+    margin-bottom: 5px;
+}
+.choice input{
+    display: block; 
+    width: 100%; 
+    height: 40px;
+}
+
+.choice select {
+    display: block; 
+    width: 100%; 
+    height: 40px; 
+}
+.choice1{
+    margin: 10px 0;
+}
+.choice1 label {
+    display: block;
+    margin-bottom: 5px;
+}
+.choice1 input{
+    display: block; 
+    width: 100%; 
+    height: 40px;
+}
+.adress{
+    font-size: 15px;
+    margin: 5px 0 10px 0;
+}
+.Time{
+    margin: 10px 0;
+}
+.Time input{
+    margin: 10px 0;
+}
 @media screen and (max-width: 800px) {
     .cards{
         grid-template-columns: repeat(2, 1fr)
@@ -76,6 +138,17 @@
     .product-card{
         justify-content:space-evenly;
     }
+}
+.btn11{
+    border-radius: 10px;
+    width: auto; 
+    height: 40px;
+    background-color:#f1eee9;
+    border-color:#f1eee9;
+}
+.btn11:hover{
+    background-color: lightgray;
+    border-color: lightgrey;
 }
 
 @media screen and (max-width: 600px) {
@@ -85,4 +158,7 @@
     .cards{
         grid-template-columns: repeat(1, 1fr)
     }
+}
+.choice .dish-info {
+    margin-bottom: 10px; 
 }

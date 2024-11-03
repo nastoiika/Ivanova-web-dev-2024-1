@@ -35,6 +35,8 @@ h1 {
 
 .av > img{
     height: 100%;
+    border-radius: 35px;
+
 }
 
 
@@ -93,12 +95,12 @@ th, td{
     .d-flex{
         justify-content: space-between;
         padding: 0;
-        flex-grow: 1;
     }
     .av > img {
         width: 500px; 
         object-fit: cover;
     }
+
 }
 
 @media screen and (max-width: 600px) {
@@ -112,7 +114,6 @@ th, td{
     .av > img {
         width: 100%; 
         object-fit: cover;
-        
     }
     table{
         font-size: 0.875rem;
@@ -122,10 +123,5 @@ th, td{
 @media screen and (max-width: 400px) {
     table{
         font-size: 0.75rem;
-    }
-    .av > img {
-        width: 100%; 
-        object-fit: cover;
-        
     }
 }
