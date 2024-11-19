@@ -8,45 +8,6 @@ const selectedDishes = {
     drink: null,
     desert: null
 };
-function displayDishes() {
-    const sections = {
-        soup: document.querySelector('.sup .cards'),
-        main: document.querySelector('.bludo .cards'),
-        salad: document.querySelector('.salat .cards'),
-        drink: document.querySelector('.napitok .cards'),
-        desert: document.querySelector('.sweet .cards')
-    };
-
-    Object.values(sections).forEach(section => section.innerHTML = '');
-
-    const sortedDishes = dishes.sort((a, b) => a.name.localeCompare(b.name));
-
-    sortedDishes.forEach(dish => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.setAttribute('data-dish', dish.keyword);
-        card.classList.add(dish.kind);
-        card.innerHTML = `
-            <div class="product-image">
-                <img src="${dish.image}" alt="">
-            </div>
-            <div class="product-details">
-                <p class="info">${dish.price}&#8381;</p>
-                <p class="info">${dish.name}</p>
-                <p class="info1">${dish.count}</p>
-                <div class="control">
-                    <button class="btn" onclick="addToOrder('${dish.keyword}')">
-                        <span class="buy">Добавить</span>
-                    </button>
-                </div>
-            </div>
-        `;
-        const button = card.querySelector('.btn');
-        button.addEventListener('click', () => addToOrder(dish.keyword));
-        sections[dish.category].appendChild(card);
-    });
-}
-
 
 function addToOrder(keyword) {
     const dish = dishes.find(d => d.keyword === keyword);
@@ -109,6 +70,48 @@ function addToOrder(keyword) {
     document.getElementById('total-cost').style.display = 'block';
     document.getElementById('cost-value').textContent = totalCost;
 }
+
+
+function displayDishes() {
+    const sections = {
+        soup: document.querySelector('.sup .cards'),
+        main: document.querySelector('.bludo .cards'),
+        salad: document.querySelector('.salat .cards'),
+        drink: document.querySelector('.napitok .cards'),
+        desert: document.querySelector('.sweet .cards')
+    };
+
+    Object.values(sections).forEach(section => section.innerHTML = '');
+
+    const sortedDishes = dishes.sort((a, b) => a.name.localeCompare(b.name));
+
+    sortedDishes.forEach(dish => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-dish', dish.keyword);
+        card.classList.add(dish.kind);
+        card.innerHTML = `
+            <div class="product-image">
+                <img src="${dish.image}" alt="">
+            </div>
+            <div class="product-details">
+                <p class="info">${dish.price}&#8381;</p>
+                <p class="info">${dish.name}</p>
+                <p class="info1">${dish.count}</p>
+                <div class="control">
+                    <button class="btn")">
+                        <span class="buy">Добавить</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        const button = card.querySelector('.btn');
+        button.addEventListener('click', () => addToOrder(dish.keyword));
+        sections[dish.category].appendChild(card);
+    });
+}
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
