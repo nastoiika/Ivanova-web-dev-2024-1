@@ -1,13 +1,14 @@
-import dishes from './dishes.js';
-
 let totalCost = 0;
+let dishes = [];
 const selectedDishes = {
     soup: null,
-    main: null,
+    'main-course': null,
     salad: null,
     drink: null,
-    desert: null
+    dessert: null
 };
+const apiUrl = "https://edu.std-900.ist.mospolytech.ru/labs/api/dishes";
+
 
 function addToOrder(keyword) {
     const dish = dishes.find(d => d.keyword === keyword);
@@ -18,7 +19,7 @@ function addToOrder(keyword) {
 
     let infoContainer;
     let hiddenFieldId;
-    let categoryKey = null;
+
     switch (dish.category) {
     case 'soup':
         if (selectedDishes.soup) {
@@ -29,13 +30,13 @@ function addToOrder(keyword) {
         selectedDishes.soup = dish.keyword;
         infoContainer = document.getElementById('soup-info');
         break;
-    case 'main':
-        if (selectedDishes.main) {
+    case 'main-course':
+        if (selectedDishes['main-course']) {
             const previousDish = 
-            dishes.find(d => d.keyword === selectedDishes.main);
+            dishes.find(d => d.keyword === selectedDishes['main-course']);
             totalCost -= previousDish.price;
         }
-        selectedDishes.main = dish.keyword;
+        selectedDishes['main-course'] = dish.keyword;
         infoContainer = document.getElementById('entree-info');
         break;
     case 'salad':
@@ -56,13 +57,13 @@ function addToOrder(keyword) {
         selectedDishes.drink = dish.keyword;
         infoContainer = document.getElementById('drink-info');
         break;
-    case 'desert':
-        if (selectedDishes.desert) {
+    case 'dessert':
+        if (selectedDishes.dessert) {
             const previousDish = 
-            dishes.find(d => d.keyword === selectedDishes.desert);
+            dishes.find(d => d.keyword === selectedDishes.dessert);
             totalCost -= previousDish.price;
         }
-        selectedDishes.desert = dish.keyword;
+        selectedDishes.dessert = dish.keyword;
         infoContainer = document.getElementById('desert-info');
         break;
     }
@@ -73,25 +74,6 @@ function addToOrder(keyword) {
 
     hiddenFieldId = `selected-${dish.category}`;
     document.getElementById(hiddenFieldId).value = dish.keyword;
-
-    if (selectedDishes[categoryKey]) {
-        const prevCard = document.querySelector(
-            `[data-dish="${selectedDishes[categoryKey]}"]`
-        );
-        if (prevCard) prevCard.classList.remove('selected');
-
-        const previousDish = dishes.find(
-            d => d.keyword === selectedDishes[categoryKey]
-        );
-        totalCost -= previousDish.price;
-    }
-
-    selectedDishes[categoryKey] = dish.keyword;
-    infoContainer.innerHTML = `${dish.name} - ${dish.price}&#8381;`;
-    totalCost += dish.price;
-
-    const currentCard = document.querySelector(`[data-dish="${dish.keyword}"]`);
-    if (currentCard) currentCard.classList.add('selected');
     
     totalCost += dish.price;
     document.getElementById('total-cost').style.display = 'block';
@@ -99,19 +81,23 @@ function addToOrder(keyword) {
 }
 
 function displayDishes() {
+    if (!dishes) return;
     const sections = {
         soup: document.querySelector('.sup .cards'),
-        main: document.querySelector('.bludo .cards'),
+        'main-course': document.querySelector('.bludo .cards'),
         salad: document.querySelector('.salat .cards'),
         drink: document.querySelector('.napitok .cards'),
-        desert: document.querySelector('.sweet .cards')
+        dessert: document.querySelector('.sweet .cards')
     };
 
     Object.values(sections).forEach(section => section.innerHTML = '');
-
     const sortedDishes = dishes.sort((a, b) => a.name.localeCompare(b.name));
-
     sortedDishes.forEach(dish => {
+        const section = sections[dish.category];
+        if (!section) {
+            console.error(`Категория ${dish.category} не найдена в sections`);
+            return;
+        }
         const card = document.createElement('div');
         card.className = 'product-card';
         card.setAttribute('data-dish', dish.keyword);
@@ -137,26 +123,33 @@ function displayDishes() {
     });
 }
 
+async function loadDishes() {
+    try {
+        const response = await fetch(apiUrl);
+        dishes = await response.json();
+        displayDishes();
+    } catch (error) {
+        console.error("Ошибка при загрузке данных:", error);
+    }
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    displayDishes();
-});
+document.addEventListener('DOMContentLoaded', loadDishes);
 
 function isValidOrder() {
     const combos = [
-        { soup: true, main: true, salad: true, drink: true },
-        { soup: true, main: true, drink: true },
+        { soup: true, 'main-course': true, salad: true, drink: true },
+        { soup: true, 'main-course': true, drink: true },
         { soup: true, salad: true, drink: true },
-        { main: true, salad: true, drink: true },
-        { main: true, drink: true },
+        { 'main-course': true, salad: true, drink: true },
+        { 'main-course': true, drink: true },
     ];
 
-    return combos.some(combo => 
-        Object.entries(combo).every(([key, required]) => 
-            !required || selectedDishes[key] !== null));
+    return combos.some(combo => Object.entries(combo)
+        .every(([key, required]) => !required || selectedDishes[key] !== null));
 }
 function getMissingItemsMessage() {
-    const requiredCategories = ['soup', 'main', 'salad', 'drink', 'desert'];
+    const requiredCategories = 
+    ['soup', 'main-course', 'salad', 'drink', 'dessert'];
     const missingItems = 
     requiredCategories.filter(category => selectedDishes[category] !== null);
     console.log(missingItems);
@@ -167,23 +160,23 @@ function getMissingItemsMessage() {
         if (missingItems.includes('drink') == false) {
             answer = "Выбирете напиток";
         }
-        if ((missingItems.includes('drink') || missingItems.includes('desert')) 
-            && missingItems.includes('main') == false) {
+        if ((missingItems.includes('drink') || missingItems.includes('dessert'))
+             && missingItems.includes('main-course') == false) {
             answer = "Выбирете главное блюдо";
         }
         if (missingItems.includes('soup') && (missingItems.includes('salad') 
-            == false || missingItems.includes('main') == false)) {
+            == false || missingItems.includes('main-course') == false)) {
             if ((missingItems.includes('salad') 
-                || missingItems.includes('main'))) {
+                || missingItems.includes('main-course'))) {
                 answer = answer;
             } else {
                 answer = "Выбирете главное блюдо/салат/стартер";
             }
         }
-        if (missingItems.includes('salad') && (missingItems.includes('soup')
-             == false || missingItems.includes('main') == false)) {
+        if (missingItems.includes('salad') && (missingItems.includes('soup') 
+            == false || missingItems.includes('main-course') == false)) {
             if ((missingItems.includes('soup') 
-                || missingItems.includes('main'))) {
+                | missingItems.includes('main-course'))) {
                 answer = answer;
             } else {
                 answer = "Выбирете суп или главное блюдо";
@@ -212,5 +205,5 @@ document.querySelector('form').addEventListener('submit', function (event) {
     }
 });
 
-document.getElementById("closeModalButton").addEventListener("click", 
-    closeModal);
+document.getElementById("closeModalButton")
+    .addEventListener("click", closeModal);

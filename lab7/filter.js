@@ -20,8 +20,7 @@ function filter(event) {
     let childrenSection = container.children;
 
     for (let menuItem of childrenSection) {
-        if 
-        (menuItem.classList.contains(event.target.getAttribute("data-kind"))) {
+        if (menuItem.classList.contains(event.target.getAttribute("data-kind"))) {
             menuItem.style.display = "flex";
         } else {
             menuItem.style.display = "none";

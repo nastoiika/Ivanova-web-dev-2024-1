@@ -20,48 +20,56 @@ function addToOrder(keyword) {
     let hiddenFieldId;
 
     switch (dish.category) {
-        case 'soup':
-            if (selectedDishes.soup) {
-                const previousDish = dishes.find(d => d.keyword === selectedDishes.soup);
-                totalCost -= previousDish.price;
-            }
-            selectedDishes.soup = dish.keyword;
-            infoContainer = document.getElementById('soup-info');
-            break;
-        case 'main':
-            if (selectedDishes.main) {
-                const previousDish = dishes.find(d => d.keyword === selectedDishes.main);
-                totalCost -= previousDish.price;
-            }
-            selectedDishes.main = dish.keyword;
-            infoContainer = document.getElementById('entree-info');
-            break;
-        case 'salad':
-            if (selectedDishes.salad) {
-                const previousDish = dishes.find(d => d.keyword === selectedDishes.salad);
-                totalCost -= previousDish.price;
-            }
-            selectedDishes.salad = dish.keyword;
-            infoContainer = document.getElementById('salad-info');
-            break;
-        case 'drink':
-            if (selectedDishes.drink) {
-                const previousDish = dishes.find(d => d.keyword === selectedDishes.drink);
-                totalCost -= previousDish.price;
-            }
-            selectedDishes.drink = dish.keyword;
-            infoContainer = document.getElementById('drink-info');
-            break;
-        case 'desert':
-            if (selectedDishes.desert) {
-                const previousDish = dishes.find(d => d.keyword === selectedDishes.desert);
-                totalCost -= previousDish.price;
-            }
-            selectedDishes.desert = dish.keyword;
-            infoContainer = document.getElementById('desert-info');
-            break;
+    case 'soup':
+        if (selectedDishes.soup) {
+            const previousDish = 
+            dishes.find(d => d.keyword === selectedDishes.soup);
+            totalCost -= previousDish.price;
+        }
+        selectedDishes.soup = dish.keyword;
+        infoContainer = document.getElementById('soup-info');
+        break;
+    case 'main':
+        if (selectedDishes.main) {
+            const previousDish = 
+            dishes.find(d => d.keyword === selectedDishes.main);
+            totalCost -= previousDish.price;
+        }
+        selectedDishes.main = dish.keyword;
+        infoContainer = document.getElementById('entree-info');
+        break;
+    case 'salad':
+        if (selectedDishes.salad) {
+            const previousDish = 
+            dishes.find(d => d.keyword === selectedDishes.salad);
+            totalCost -= previousDish.price;
+        }
+        selectedDishes.salad = dish.keyword;
+        infoContainer = document.getElementById('salad-info');
+        break;
+    case 'drink':
+        if (selectedDishes.drink) {
+            const previousDish = 
+            dishes.find(d => d.keyword === selectedDishes.drink);
+            totalCost -= previousDish.price;
+        }
+        selectedDishes.drink = dish.keyword;
+        infoContainer = document.getElementById('drink-info');
+        break;
+    case 'desert':
+        if (selectedDishes.desert) {
+            const previousDish = 
+            dishes.find(d => d.keyword === selectedDishes.desert);
+            totalCost -= previousDish.price;
+        }
+        selectedDishes.desert = dish.keyword;
+        infoContainer = document.getElementById('desert-info');
+        break;
     }
-    infoContainer.innerHTML = `${dish.category === 'soup' ? 'Суп' : dish.category === 'main' ? 'Основное блюдо' : dish.category === 'salad' ? 'Салат' : dish.category === 'drink' ? 'Напиток' : 'Десерт'}:<br>${dish.name} - ${dish.price}&#8381;`;
+    infoContainer.innerHTML = `${dish.category === 'soup' ? 'Суп' : 
+        dish.category === 'main' ? 'Основное блюдо' : dish.category === 'salad' 
+            ? 'Салат' : dish.category === 'drink' ? 'Напиток' :
+                'Десерт'}:<br>${dish.name} - ${dish.price}&#8381;`;
 
     hiddenFieldId = `selected-${dish.category}`;
     document.getElementById(hiddenFieldId).value = dish.keyword;
@@ -110,9 +118,6 @@ function displayDishes() {
         sections[dish.category].appendChild(card);
     });
 }
-
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     displayDishes();
