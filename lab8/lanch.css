@@ -5,6 +5,14 @@
     gap: 10px;
     padding: 30px 40px;
 }
+
+#selected-dishes-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 30px 40px;
+}
+
 .product-card{
     display: flex;
     flex-direction: column;
@@ -219,7 +227,7 @@
 }
 
 .modal {
-    display: none; 
+    display: none;  /* Используем flexbox для центрирования */
     position: fixed;
     top: 0;
     left: 0;
@@ -242,6 +250,7 @@
     border: 2px solid #000000;
 }
 
+/* Кнопка Ok */
 .modal button {
     margin-top: 15px;
     padding: 10px 20px;
@@ -254,4 +263,37 @@ button:hover {
     background-color: #000000;
     color: white;
 
+}
+
+.summary-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+.summary-bar .choice {
+    font-size: 18px;
+}
+
+.summary-bar button {
+    padding: 10px 20px; 
+    font-size: 16px;
+    background-color:#f1eee9;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.selected {
+    border: 2px solid tomato;
+}
+#checkout-button {
+    display: none;
+}
+
+.no-underline {
+    text-decoration: none;
 }

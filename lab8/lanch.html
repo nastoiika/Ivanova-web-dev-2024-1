@@ -21,6 +21,7 @@
                 <ul class="d-flex">
                     <li><a class = "btn2" href="index.html">О нас</a></li>
                     <li><a class = "btn2 active" href="lanch.html">Собрать ланч</a></li>
+                    <li><a class = "btn2" href="order.html">Оформить заказ</a></li>
                     <li><a class = "btn2" href="#Top">Заказы</a></li>
                     <li><a class = "btn2" href="#Contact">Контакты</a></li>
                 </ul>
@@ -148,8 +149,7 @@
             <div class="cards">
             </div>
         </section>
-        <section class="data">
-            <h2 class="name_order">Сделать заказ</h2>
+        <section class="data" style="display: none;">
             <form method="POST" action="https://httpbin.org/post">
             <div class="data_forms">
                 <div class="order">
@@ -162,70 +162,23 @@
                         <div id="drink-info" class="dish-info">Напиток<br>Ничего не выбрано</div>
                         <div id="desert-info" class="dish-info">Десерт<br>Ничего не выбрано</div>
                     </div>  
-                    <div id="total-cost" class="choice" style="display: none;">
-                        Общая стоимость: <span id="cost-value">0</span>&#8381;
-                    </div>                 
-                    
                     <input type="hidden" id="selected-soup" name="soup">
                     <input type="hidden" id="selected-main-course" name="main-course">
                     <input type="hidden" id="selected-salad" name="salad">
                     <input type="hidden" id="selected-drink" name="drink">
                     <input type="hidden" id="selected-dessert" name="dessert">
-
-                    <div class="choice">
-                        <label for="comment">Комментарии к заказу</label>
-                        <textarea name="comment" id="comment" cols="91" rows="10"></textarea>
-                    </div>
-                </div>
-                <div class="order">
-                    <h2 class="name_order1">Ваши данные</h2>
-                    <div class="choice">
-                        <label for="fio" >Имя</label>
-                        <input type="text" id="fio" name="fio" required>
-                    </div>
-                    <div class="choice">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="example@mail.com" required>
-                    </div>
-                    <div class="Time">
-                        <label for="subscribe">Получать инфориацию о скидках и акциях</label>
-                        <input type="checkbox" id="subscribe" name="subscribe" checked>
-                    </div>
-                    <div class="choice">
-                        <label for="number">Номер телефона</label>
-                        <input type="tel" id="number" name="number" required>
-                    </div>
-                    <div class="choice1">
-                        <label for="adres">Адрес доставки</label>
-                        <input type="text" id="adres" name="adres">
-                        <h3 class="adress">Доставка осуществляется только по Mоскве</h3>
-                    </div>
-                    <div>
-                        <fieldset class="Time">
-                            <legend>Время доставки:</legend>
-                            <div>
-                                <input type="radio" name="time" value="fast" id="fast" required>
-                                <label for="fast">Как можно скорее</label>
-                            </div>
-                            <div>
-                                <input type="radio" name="time" value="to_time" id="to_time" required>
-                                <label for="to_time">К указанному времени</label>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="choice1">
-                        <label for="clock">Время доставки</label>
-                        <input type="time" id="clock" name="clock" min="07:00" max="23:00" step="300">
-                        <h3 class="adress">Доступное время доставки с 7:00 до 23:00</h3>
-                    </div>
-                    <div>
-                        <button class="btn11" type="reset">Сбросить</button>
-                        <button class="btn11" type="submit">Отправить</button>
-                    </div>
                 </div>
             </div>
             </form>
         </section>
+        <div class="summary-bar">
+            <div id="total-cost" class="choice">
+                Итого: <span id="cost-value">0</span>&#8381;
+            </div>
+            <a href="order.html" class="no-underline">
+                <button id="checkout-button">Перейти к оформлению</button>
+            </a>
+        </div>
     </div>
 </main>
 <footer id = "Contact">
@@ -238,7 +191,7 @@
     <div class="modal-body">
         <div class="modal-content">
             <p id="modal-message">Текст сообщения</p>
-            <button type="button" id="closeModalButton">Окей</button>
+            <button type="button" id="closeModalButton" data-bs-dismiss="modal">Окей</button>
         </div>
     </div>
 </div>

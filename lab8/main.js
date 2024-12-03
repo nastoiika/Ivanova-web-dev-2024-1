@@ -9,6 +9,19 @@ const selectedDishes = {
 };
 const apiUrl = "https://edu.std-900.ist.mospolytech.ru/labs/api/dishes";
 
+function updateCheckoutButtonVisibility() {
+    const checkoutButton = document.getElementById('checkout-button');
+    const hasSelectedDishes = 
+    Object.values(selectedDishes).some(dish => dish !== null);
+    
+    // Если блюда выбраны, показываем кнопку, иначе скрываем
+    if (hasSelectedDishes) {
+        checkoutButton.style.display = 'block';
+    } else {
+        checkoutButton.style.display = 'none';
+    }
+}
+
 
 function addToOrder(keyword) {
     const dish = dishes.find(d => d.keyword === keyword);
@@ -74,10 +87,34 @@ function addToOrder(keyword) {
 
     hiddenFieldId = `selected-${dish.category}`;
     document.getElementById(hiddenFieldId).value = dish.keyword;
+
+    const currentCard = document.querySelector(`[data-dish="${dish.keyword}"]`);
+    if (currentCard) currentCard.classList.add('selected');
     
     totalCost += dish.price;
     document.getElementById('total-cost').style.display = 'block';
     document.getElementById('cost-value').textContent = totalCost;
+    localStorage.setItem('selectedDishes', JSON.stringify(selectedDishes));
+
+    updateCheckoutButtonVisibility();
+}
+
+function loadOrderFromLocalStorage() {
+    const savedDishes = localStorage.getItem('selectedDishes');
+    if (savedDishes) {
+        const selectedDishes = JSON.parse(savedDishes);
+        
+        // Обновляем отображение выбранных блюд
+        Object.entries(selectedDishes).forEach(([category, keyword]) => {
+            if (keyword) {
+                const dish = dishes.find(d => d.keyword === keyword);
+                if (dish) {
+                    // Обновляем интерфейс для каждого выбранного блюда
+                    addToOrder(keyword);
+                }
+            }
+        });
+    }
 }
 
 function displayDishes() {
@@ -133,7 +170,12 @@ async function loadDishes() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadDishes);
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadDishes();
+    loadOrderFromLocalStorage();
+    
+    updateCheckoutButtonVisibility();
+});
 
 function isValidOrder() {
     const combos = [
@@ -186,6 +228,12 @@ function getMissingItemsMessage() {
     return answer;
 }
 
+document.querySelector('a button').addEventListener('click', function(event) {
+    if (!isValidOrder()) {
+        event.preventDefault(); // Отменяет переход
+    }
+});
+
 function showModal(message) {
     const modal = document.getElementById('modal');
     const modalMessage = document.getElementById('modal-message');
@@ -204,6 +252,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
         showModal(getMissingItemsMessage());
     }
 });
+
 
 document.getElementById("closeModalButton")
     .addEventListener("click", closeModal);
