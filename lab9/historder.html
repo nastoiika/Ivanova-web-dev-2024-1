@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Веб разработка</title>
+        <link rel = "stylesheet" href="style.css">
+        <link rel = "stylesheet" href="lanch.css">
+        <link rel = "stylesheet" href="historder.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+        <div class = "name d-flex">
+            <h1>Food Construct</h1>
+        </div>
+        <div class = "name d-flex">
+            <nav class = "main-menu">
+                <ul class="d-flex">
+                    <li><a class = "btn2" href="index.html">О нас</a></li>
+                    <li><a class = "btn2" href="lanch.html">Собрать ланч</a></li>
+                    <li><a class = "btn2" href="order.html">Оформить заказ</a></li>
+                    <li><a class = "btn2 active" href="historder.html">Заказы</a></li>
+                    <li><a class = "btn2" href="#Contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<main>
+    <h2 class = "name">История заказов</h2>
+    <hr style="margin-top: 30px">
+
+    <div class="flex-container">
+        <div class="flex-item">№</div>
+        <div class="flex-item">Дата оформления</div>
+        <div class="flex-item">Состав заказа</div>
+        <div class="flex-item">Стоимость</div>
+        <div class="flex-item">Время доставки</div>
+        <div class="flex-item">Действия</div>
+    </div>
+
+
+    <div id="order-list"></div>
+
+</main>
+
+<footer id = "Contact">
+    <div>
+    Позвонить нам +7-000-00-000
+    </div>
+</footer>
+<script src="historder.js"></script>
+<div id="modal" class="modal">
+    <div class="modal-body">
+    <div class="modal-content">
+        <p>Вы уверены, что хотите удалить этот заказ?</p>
+        <button id="confirmDeleteButton">Да</button>
+        <button id="cancelDeleteButton">Отмена</button>
+    </div>
+</div>
+
+
+<div id="editOrderModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Customer Information</h2>
+      
+      <!-- Form fields -->
+      <form id="editOrderForm">
+        <div class="choice">
+          <label for="full_name">Full Name:</label>
+          <input type="text" id="full_name" name="full_name" required>
+        </div>
+  
+        <div class="choice">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+        </div>
+  
+        <div class="Time">
+          <label for="subscribe">Subscribe to promotions:</label>
+          <input type="checkbox" id="subscribe" name="subscribe" checked>
+        </div>
+  
+        <div class="choice">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+  
+        <div class="choice1">
+          <label for="delivery_address">Delivery Address:</label>
+          <input type="text" id="delivery_address" name="delivery_address" required>
+          <h3 class="delivery_address">Delivery only available in Moscow</h3>
+        </div>
+  
+        <div>
+          <fieldset class="delivery_type">
+            <legend>Delivery Time:</legend>
+            <div>
+              <input type="radio" name="delivery_type" value="now" id="now" required>
+              <label for="now">As soon as possible</label>
+            </div>
+            <div>
+              <input type="radio" name="delivery_type" value="by_time" id="by_time" required>
+              <label for="by_time">At specified time</label>
+            </div>
+          </fieldset>
+        </div>
+  
+        <div class="choice1">
+          <label for="delivery_time">Delivery Time:</label>
+          <input type="time" id="delivery_time" name="delivery_time" min="07:00" max="23:00" step="300">
+          <h3 class="adress">Available delivery time from 7:00 to 23:00</h3>
+        </div>
+  
+        <input type="hidden" id="orderId" name="orderId">
+  
+        <button type="submit">Save Changes</button>
+        <button type="button" onclick="closeModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

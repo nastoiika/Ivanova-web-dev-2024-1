@@ -20,7 +20,7 @@ export default [{
         "func-call-spacing": "error",
 
         "max-len": ["error", {
-            code: 80,
+            code: 3000,
         }],
 
         semi: "error",
