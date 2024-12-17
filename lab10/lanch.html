@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Веб разработка</title>
+        <link rel = "stylesheet" href="style.css">
+        <link rel = "stylesheet" href="lanch.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    </head>
+
+<body>
+    <header>
+        <div class = "name d-flex">
+            <h1>Food Construct</h1>
+        </div>
+        <div class = "name d-flex">
+            <nav class = "main-menu">
+                <ul class="d-flex">
+                    <li><a class = "btn2" href="index.html">О нас</a></li>
+                    <li><a class = "btn2 active" href="lanch.html">Собрать ланч</a></li>
+                    <li><a class = "btn2" href="order.html">Оформить заказ</a></li>
+                    <li><a class = "btn2" href="historder.html">Заказы</a></li>
+                    <li><a class = "btn2" href="landing.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<main>
+    <div class = "page">
+        <h2 class="comboh2">Доступные для заказа комбо</h2>
+        <section class="combo">
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\soup.png" alt="">
+                    <div>Cуп</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\main.png" alt="">
+                    <div>Главное блюдо</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\salad.png" alt="">
+                    <div>Cалат</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\drink.png" alt="">
+                    <div>Напиток</div>
+                </div>
+            </div>
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\soup.png" alt="">
+                    <div>Cуп</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\main.png" alt="">
+                    <div>Главное блюдо</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\drink.png" alt="">
+                    <div>Напиток</div>
+                </div>
+            </div>
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\soup.png" alt="">
+                    <div>Cуп</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\salad.png" alt="">
+                    <div>Cалат</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\drink.png" alt="">
+                    <div>Напиток</div>
+                </div>
+            </div>
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\main.png" alt="">
+                    <div>Главное блюдо</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\salad.png" alt="">
+                    <div>Cалат</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\drink.png" alt="">
+                    <div>Напиток</div>
+                </div>
+            </div>
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\main.png" alt="">
+                    <div>Главное блюдо</div>
+                </div>
+                <div class="iconcombo">
+                    <img src="\img\icon\drink.png" alt="">
+                    <div>Напиток</div>
+                </div>
+            </div>
+            <div class="variantcombo">
+                <div class="iconcombo">
+                    <img src="\img\icon\desert.png" alt="">
+                    <div>Десерт</div>
+                    <div class="combodesert">(Можно добавить к любому заказу)</div>
+                </div>
+            </div>
+        </section>
+        <section class = "sup">
+            <h2 class = "name">Выберите суп</h2>
+            <button class="filtr" data-kind="fish"> рыбный </button>
+            <button class="filtr" data-kind="meat"> мясной </button>
+            <button class="filtr" data-kind="veg"> вегетарианский </button>
+            <div class="cards">
+            </div>
+        </section>
+        <section class = "bludo">
+            <h2 class = "name">Выберите основное блюдо</h2>
+            <button class="filtr" data-kind="fish"> рыбный </button>
+            <button class="filtr" data-kind="meat"> мясной </button>
+            <button class="filtr" data-kind="veg"> вегетарианский </button>
+            <div class="cards">
+            </div>
+        </section>
+        <section class = "salat">
+            <h2 class = "name">Выберите салат или стартер</h2>
+            <button class="filtr" data-kind="fish"> рыбный </button>
+            <button class="filtr" data-kind="meat"> мясной </button>
+            <button class="filtr" data-kind="veg"> вегетарианский </button>
+            <div class="cards">
+            </div>
+        </section>
+        <section class = "napitok">
+            <h2 class = "name">Выберите напиток</h2>
+            <button class="filtr" data-kind="cold"> холодный </button>
+            <button class="filtr" data-kind="hot"> горячий </button>
+            <div class="cards">
+            </div>
+        </section>
+        <section class = "sweet">
+            <h2 class = "name">Выберите десерт</h2>
+            <button class="filtr" data-kind="small"> маленькая </button>
+            <button class="filtr" data-kind="average"> средняя </button>
+            <button class="filtr" data-kind="big"> большая </button>
+            <div class="cards">
+            </div>
+        </section>
+        <section class="data" style="display: none;">
+            <form method="POST" action="https://httpbin.org/post">
+            <div class="data_forms">
+                <div class="order">
+                    <h2 class="name_order1">Ваш заказ</h2>
+                    <div id = "nothing" class="choice">Ничего не выбрано</div>
+                    <div id="selected-dishes" class="choice" style="display: none;">
+                        <div id="soup-info" class="dish-info">Суп<br>Ничего не выбрано</div>
+                        <div id="entree-info" class="dish-info">Главное блюдо<br>Ничего не выбрано</div>
+                        <div id="salad-info" class="dish-info">Салат<br>Ничего не выбрано</div>
+                        <div id="drink-info" class="dish-info">Напиток<br>Ничего не выбрано</div>
+                        <div id="desert-info" class="dish-info">Десерт<br>Ничего не выбрано</div>
+                    </div>  
+                    <input type="hidden" id="selected-soup" name="soup">
+                    <input type="hidden" id="selected-main-course" name="main-course">
+                    <input type="hidden" id="selected-salad" name="salad">
+                    <input type="hidden" id="selected-drink" name="drink">
+                    <input type="hidden" id="selected-dessert" name="dessert">
+                </div>
+            </div>
+            </form>
+        </section>
+        <div class="summary-bar">
+            <div id="total-cost" class="choice">
+                Итого: <span id="cost-value">0</span>&#8381;
+            </div>
+            <a href="order.html" class="no-underline">
+                <button id="checkout-button">Перейти к оформлению</button>
+            </a>
+        </div>
+    </div>
+</main>
+<footer id = "Contact">
+    <div>
+    Позвонить нам +7-000-00-000
+    </div>
+</footer>
+
+<div id="modal" class="modal">
+    <div class="modal-body">
+        <div class="modal-content">
+            <p id="modal-message">Текст сообщения</p>
+            <button type="button" id="closeModalButton" data-bs-dismiss="modal">Окей</button>
+        </div>
+    </div>
+</div>
+
+
+<script type="module" src="main.js"></script>
+<script src="filter.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Распределяет пространство между элементами */
+    align-items: center; /* Центрирует элементы по вертикали */
+    padding: 10px 0; /* Внешний отступ сверху и снизу */
+    border-bottom: 1px solid #262626;
+}
+
+.flex-item {
+    flex: 1; /* Каждый элемент занимает равную часть доступного пространства */
+    padding: 20px;
+    text-align: center;
+    margin-right: 10px; /* Отступ справа между элементами */
+    margin-top: 0; /* Убирает верхний отступ */
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0);
+    display: none;  /* Используем flexbox для центрирования */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal2 {
+    background-color: rgba(0, 0, 0, 0);
+    display: none;  /* Используем flexbox для центрирования */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px;
+    text-align: center;
+    border: 2px solid #000000;
+    height: auto;
+}
+
+.modal-content p {
+    text-align: left; /* Выравнивание текста по левому краю */
+    margin-left: 0;   /* Убираем отступы слева */
+}
+
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn{
+    border-radius: 10px;
+    width: 100%;
+    background-color:#f1eee9;
+    cursor: pointer;
+    border: 2px solid #f1eee9;
+    margin-top: 20px;
+    padding: 10px 30px;
+}
+
+.dialog {
+    background-color: rgba(0, 0, 0, 0);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: auto; 
+}
+
+#editOrderModal { 
+    overflow-y: auto;
+}
+
+#editOrderModal .form-group {
+    margin-top: 10px; /* Добавляет отступ сверху к каждому полю ввода */
+    margin-bottom: 10px; /* Добавляет отступ снизу к каждому полю ввода */
+    padding-top: 5px; /* Добавляет внутренний отступ сверху */
+    padding-bottom: 5px; /* Добавляет внутренний отступ снизу */
+    justify-content: left;
+    display: flex;
+    align-items: center;
+}
+
+.modal .form-group input, .modal .form-group textarea {
+    flex-grow: 1; /* Заполняет оставшееся пространство */
+    padding: 5px;
+    width: 100%; /* Использует всю доступную ширину */
+    box-sizing: border-box; /* Учитывает отступы и рамки в расчете ширины */
+}
+
+.order-item {
+    float: left;
+}
+
+.orderItems {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Выровнять текст по левому краю */
+    gap: 5px; /* Определяет пространство между элементами */
+}
+
+
+#modal2 .modal-content {
+    position: relative; /* Устанавливаем позиционирование для родителя */
+}
+
+#modal2 #closeButton {
+    position: absolute;
+    bottom: 10px; /* Отступ от нижнего края */
+    right: 10px; /* Отступ от правого края */
+}
