@@ -1,8 +1,8 @@
 let storedDishes = [];
 let allDishes = [];
 const apiKey = "67c64755-06b2-4aa4-8437-d6ff2bcb5577";
-// eslint-disable-next-line max-len
-const apiUrl = `https://edu.std-900.ist.mospolytech.ru/labs/api/orders?api_key=${apiKey}`;
+const apiUrl = 
+`https://edu.std-900.ist.mospolytech.ru/labs/api/orders?api_key=${apiKey}`;
 function addToOrder(selectedDishes, allDishes) {
     let totalCost = 0; // Инициализация общей стоимости
 

@@ -9,13 +9,9 @@ function closeModal() {
 function closeModal1() {
     document.getElementById("modal").style.display = "none";
 }
-
+//для подробнее
 function closeModal2() {
     document.getElementById("modal2").style.display = "none";
-}
-
-function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 //посчет суммы
@@ -59,7 +55,7 @@ function formatDateTime(datetimeString) {
 
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
-
+//для отображение списка блюд
 function displayOrderDetailsInModal(order) {
     const orderItemsContainer = document.querySelector('.orderItems');
     orderItemsContainer.innerHTML = ""; // Очистка контейнера перед заполнением
@@ -78,7 +74,7 @@ function displayOrderDetailsInModal(order) {
         const dish = allDishes.find(d => d.id === dishId);
         if (dish) {
             const categoryText = categories[category];
-            const dishText = capitalize(dish.name);
+            const dishText = dish.name;
 
             // Создание элемента с категорией и блюдом
             const itemDiv = document.createElement('div');
@@ -90,13 +86,11 @@ function displayOrderDetailsInModal(order) {
     });
 }
 
-//функция для редактирования заказа
-
   
 //функция для удаления
 function removeOrder(orderId) {
-    // eslint-disable-next-line max-len
-    const apiUrl = `https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`;
+    const apiUrl = 
+    `https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`;
 
     fetch(apiUrl, {
         method: 'DELETE'
@@ -128,14 +122,13 @@ function showModal(orderId) {
 
     cancelDeleteButton.onclick = closeModal1;
 }
-
+//модальное окно подробнее
 function showModal2(orderId) {
     const modal = document.getElementById('modal2');
     modal.style.display = "block";
 
     const closeButton = document.getElementById('closeButton');
 
-    // eslint-disable-next-line max-len
     fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`)
         .then(response => response.json())
         .then(order => {
@@ -211,7 +204,7 @@ function getOrderItems(order, allDishes) {
 
     return items.join(', ');
 }
-//загркзка всех заказов
+//загрузка всех заказов
 async function fetchAndLogOrders() {
     const apiKey = "67c64755-06b2-4aa4-8437-d6ff2bcb5577";
     const apiUrl = 
@@ -224,12 +217,93 @@ async function fetchAndLogOrders() {
         }
 
         orders = await response.json();
+        orders = orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
         console.log("Полученные данные заказов:", orders);
     } catch (error) {
         console.error("Ошибка при загрузке данных заказов:", error);
     }
 }
+
+function editOrder(event, orderId) {
+    event.preventDefault();
+    const form = document.getElementById('editOrderForm');
+
+    let requestBody = {
+        full_name: document.getElementById('full_name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        delivery_address: document.getElementById('delivery_address').value,
+        subscribe: document.getElementById('subscribe').checked,
+        delivery_type: document.querySelector('input[name="delivery_type"]:checked').value,
+    };
+    console.log(requestBody);
+
+    const deliveryTimeElement = document.getElementById('delivery_time');
+    if (deliveryTimeElement) {
+        requestBody.delivery_time = deliveryTimeElement.value;
+    }
+    const commentElement = document.getElementById('comment');
+    if (commentElement) {
+        requestBody.comment = commentElement.value;
+    }
+
+    fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    }) 
+        .then(response => response.json()) 
+        .then(data => {
+            console.log('Order updated successfully:', data);
+            closeModal();
+        }) .catch(error => console.error('Error updating order:', error));
+}
+
+//модальное окно редактировать
+function openEditOrderModal(orderId) {
+    const modal = document.getElementById('editOrderModal');
+    const form = modal.querySelector('form');
+    modal.style.display = 'block';
+    // Получаем данные заказа из API
+    fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`)
+        .then(response => response.json())
+        .then(order => {
+            if (order.id) {
+                // Заполняем поля формы данными заказа
+                document.getElementById('full_name').value = order.full_name;
+                document.getElementById('email').value = order.email;
+                document.getElementById('phone').value = order.phone;
+                document.getElementById('delivery_address').value = order.delivery_address;
+                document.getElementById('subscribe').checked = order.subscribe;
+                document.getElementById('now').checked = order.delivery_type === 'now';
+                document.getElementById('by_time').checked = order.delivery_type === 'by_time';
+                if (order.delivery_time) {
+                    document.getElementById('delivery_time')
+                        .value = order.delivery_time || '';
+                }
+                if (order.comment) {
+                    document.getElementById('comment').value 
+                    = order.comment;
+                }
+                const orderDateElement = modal.querySelector('.order-date');
+                orderDateElement.textContent = 
+                `Дата оформления: ${formatDateTime(order.created_at)}`;
+                const orderSumm = modal.querySelector('.order-summ');
+                orderSumm.textContent = 
+                `Общая стоимость: ${calculateOrderCost(order, allDishes)}`;
+                displayOrderDetailsInModal(order);
+                
+            } else {
+                console.error('Данные заказа не найдены в ответе');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке данных заказа:', error);
+        });
+    form.addEventListener('submit', (event) => editOrder(event, orderId));
+}
+
 //отображение заказов
 function displayDishes (orders, allDishes) {
     const container = document.getElementById('order-list');
@@ -258,8 +332,8 @@ function displayDishes (orders, allDishes) {
 
         const deliveryTime = document.createElement('div');
         deliveryTime.className = 'flex-item';
-        // eslint-disable-next-line max-len
-        deliveryTime.textContent = order.delivery_time ? order.delivery_time : 'Как можно скорее';
+        deliveryTime.textContent = 
+        order.delivery_time ? order.delivery_time : 'Как можно скорее';
 
         const actions = document.createElement('div');
         actions.className = 'flex-item';
@@ -300,92 +374,6 @@ function displayDishes (orders, allDishes) {
 
         container.appendChild(row);
     });
-}
-
-function editOrder(event, orderId) {
-    event.preventDefault();
-    const form = document.getElementById('editOrderForm');
-
-    let requestBody = {
-        full_name: document.getElementById('full_name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        delivery_address: document.getElementById('delivery_address').value,
-        subscribe: document.getElementById('subscribe').checked,
-        // eslint-disable-next-line max-len
-        delivery_type: document.querySelector('input[name="delivery_type"]:checked').value,
-    };
-    console.log(requestBody);
-
-    const deliveryTimeElement = document.getElementById('delivery_time');
-    if (deliveryTimeElement) {
-        requestBody.delivery_time = deliveryTimeElement.value;
-    }
-    const commentElement = document.getElementById('comment');
-    if (commentElement) {
-        requestBody.comment = commentElement.value;
-    }
-
-    // eslint-disable-next-line max-len
-    fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-    }) 
-        .then(response => response.json()) 
-        .then(data => {
-            console.log('Order updated successfully:', data);
-            displayDishes(orders, allDishes);
-            closeModal();
-        }) .catch(error => console.error('Error updating order:', error));
-}
-
-//модальное окно редактировать
-function openEditOrderModal(orderId) {
-    const modal = document.getElementById('editOrderModal');
-    const form = modal.querySelector('form');
-    modal.style.display = 'block';
-    // Получаем данные заказа из API
-    // eslint-disable-next-line max-len
-    fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}?api_key=${apiKey}`)
-        .then(response => response.json())
-        .then(order => {
-            if (order.id) {
-                // Заполняем поля формы данными заказа
-                document.getElementById('full_name').value = order.full_name;
-                document.getElementById('email').value = order.email;
-                document.getElementById('phone').value = order.phone;
-                // eslint-disable-next-line max-len
-                document.getElementById('delivery_address').value = order.delivery_address;
-                document.getElementById('subscribe').checked = order.subscribe;
-                // eslint-disable-next-line max-len
-                document.getElementById('now').checked = order.delivery_type === 'now';
-                // eslint-disable-next-line max-len
-                document.getElementById('by_time').checked = order.delivery_type === 'by_time';
-                if (order.delivery_time) {
-                    document.getElementById('delivery_time')
-                        .value = order.delivery_time || '';
-                }
-                if (order.comment) {
-                    document.getElementById('comment').value 
-                    = order.comment;
-                }
-                const orderDateElement = modal.querySelector('.order-date');
-                orderDateElement.textContent = 
-                `Дата оформления: ${formatDateTime(order.created_at)}`;
-                const orderSumm = modal.querySelector('.order-summ');
-                orderSumm.textContent = 
-                `Общая стоимость: ${calculateOrderCost(order, allDishes)}`;
-                displayOrderDetailsInModal(order);
-                
-            } else {
-                console.error('Данные заказа не найдены в ответе');
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке данных заказа:', error);
-        });
-    form.addEventListener('submit', (event) => editOrder(event, orderId));
 }
 
 
